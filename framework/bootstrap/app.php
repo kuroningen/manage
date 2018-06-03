@@ -1,20 +1,8 @@
 <?php
 
-///*
-//|--------------------------------------------------------------------------
-//| Loads the .env file
-//|--------------------------------------------------------------------------
-//|
-//| We will load first our .env file before everything else :)
-//|
-//*/
-//array_map(function($sEnv) {
-//    $sEnv = trim($sEnv);
-//    if (strlen($sEnv) === 0) {
-//        return;
-//    }
-//    putenv($sEnv);
-//}, explode("\n", file_get_contents(__DIR__ . '/../../project/.env')));
+define('DS', DIRECTORY_SEPARATOR);
+define('PUBLIC_PATH', dirname(__DIR__, 2) . 'public');
+define('RESOURCES_PATH', dirname(__DIR__, 2) . 'project/resources');
 
 /*
 |--------------------------------------------------------------------------
