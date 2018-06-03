@@ -87,6 +87,10 @@ class middlewareAuth
         return $this;
     }
 
+    /**
+     * Returns true if user is logged in
+     * @return bool
+     */
     private function isLoggedIn()
     {
         $sMasterLogin = env('MASTER_LOGIN');

@@ -23,6 +23,9 @@ Route::post('login', 'contLogin@doLogin');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'middlewareAuth'], function () {
     Route::get('/', function() {
+        return redirect('/admin/device');
+    });
+    Route::get('device', function() {
         return 'hi';
     });
 });
