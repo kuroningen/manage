@@ -25,7 +25,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'middlewareAuth'], function (
     Route::get('/', function() {
         return redirect('/admin/device');
     });
-    Route::get('device', function() {
-        return 'hi';
-    });
+    Route::get('device', 'contDeviceManager@showDevices');
 });
