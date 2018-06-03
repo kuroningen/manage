@@ -89,13 +89,15 @@ class contLogin extends contBase
      */
     private function checkLogin() : contLogin
     {
+        if ($this->oResponse !== null) {
+            return $this;
+        }
+        $this->oResponse = $this->showLoginPage([
+            'sError' => 'Invalid username and/or password.'
+        ]);
         if ($this->isLoginValid()) {
             session(['user' => $this->oRequest->get('username')]);
             $this->oResponse = redirect('admin');
-        } else {
-            $this->oResponse = $this->showLoginPage([
-                'sError' => 'Invalid username and/or password.'
-            ]);
         }
         return $this;
     }
