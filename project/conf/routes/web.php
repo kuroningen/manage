@@ -18,3 +18,5 @@ Route::get('/', function() {
 });
 
 Route::get('login', 'contLogin@showLoginPage');
+Route::get('logout', 'contLogin@doLogout');
+Route::post('login', 'contLogin@doLogin');
