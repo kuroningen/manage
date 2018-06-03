@@ -6,7 +6,7 @@
  * @author  黒人間 <kuroningen@ano.nymous.xyz>
  * @since   2018.04.19
  */
-class contSampleController
+class contSampleController extends contBase
 {
     /**
      * Shows sample page
