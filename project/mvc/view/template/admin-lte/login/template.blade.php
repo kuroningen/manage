@@ -3,7 +3,7 @@
     <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('login') }}"><b>Device</b>Manager</a>
+            <a href="{{ url('login') }}"><b>Omni</b>Tool</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
@@ -12,7 +12,7 @@
             <form method="post">
                 @csrf
                 <div class="form-group has-feedback">
-                    <input type="text" name="username" class="form-control" placeholder="Username">
+                    <input type="text" name="username" class="form-control" placeholder="Username" value="{{ old('username') }}">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">

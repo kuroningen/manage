@@ -78,6 +78,46 @@ return [
             'prefix' => '',
         ],
 
+        /*
+        |--------------------------------------------------------------------------
+        | Other database connections (mysql)
+        |--------------------------------------------------------------------------
+        |
+        | In this project, there are multiple mysql databases. Below this comment
+        | the following database credentials are elaborated.
+        |
+        */
+
+        'mysql-tool-login' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_LOGIN_DATABASE', 'forge'),
+            'username' => env('DB_LOGIN_USERNAME', 'forge'),
+            'password' => env('DB_LOGIN_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_general_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        'mysql-kn-ledger' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_LEDGER_DATABASE', 'forge'),
+            'username' => env('DB_LEDGER_USERNAME', 'forge'),
+            'password' => env('DB_LEDGER_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
     ],
 
     /*
@@ -116,5 +156,4 @@ return [
         ],
 
     ],
-
 ];

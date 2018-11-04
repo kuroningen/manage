@@ -1,5 +1,5 @@
 <html>
 <body>
-    <b>This is just another framework. :]</b>
+    <b>This is a mere test.</b>
 </body>
 </html>

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use project\core\middleware\middlewareAuth;
+use project\core\middleware\middlewareNoAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,17 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function() {
-    return view('hello');
+
+Route::post('register', 'toolLogin\contRegister@doRegister');
+Route::get('logout', 'toolLogin\contLogin@doLogout');
+Route::get('generate', 'toolLogin\contKeyGenerator@generateKey');
+
+Route::group(['middleware' => middlewareNoAuth::class], function() {
+    Route::get('login', 'toolLogin\contLogin@showLoginPage');
+    Route::post('login', 'toolLogin\contLogin@doLogin');
 });
 
-Route::get('login', 'contLogin@showLoginPage');
-Route::get('logout', 'contLogin@doLogout');
-Route::post('login', 'contLogin@doLogin');
-
-Route::group(['prefix' => 'admin', 'middleware' => 'middlewareAuth'], function () {
-    Route::get('/', function() {
-        return redirect('/admin/device');
-    });
-    Route::get('device', 'contDeviceManager@showDevices');
+Route::group(['middleware' => middlewareAuth::class], function() {
+    Route::get('/', 'contDeviceManager@showDevices');
+    Route::get('/', 'contLanding@showLandingPage');
 });

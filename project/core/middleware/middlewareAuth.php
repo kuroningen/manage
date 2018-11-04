@@ -3,9 +3,13 @@
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use project\core\bl\toolLogin\blLogin;
+use project\core\exception\toolLogin\Login\LoginException;
 
 /**
- * middlewareAuth
+ * Middleware that checks whether user is logged in.
+ *   - If logged in, it'll pass the user to access its protected page.
+ *
  * @author  黒人間 <kuroningen@ano.nymous.xyz>
  * @package project\core\middleware
  * @since   2018.06.03
@@ -29,7 +33,23 @@ class middlewareAuth
     private $oResponse;
 
     /**
+     * @var blLogin
+     */
+    private $oLogin;
+
+    /**
+     * middlewareAuth constructor.
+     *
+     * @param blLogin $oLogin
+     */
+    public function __construct(blLogin $oLogin)
+    {
+        $this->oLogin = $oLogin;
+    }
+
+    /**
      * Handle an incoming request.
+     *
      * @param  Request  $request
      * @param  Closure  $next
      * @return mixed
@@ -37,14 +57,66 @@ class middlewareAuth
     public function handle(Request $request, Closure $next)
     {
         return $this
-            ->setRequest($request)
-            ->setNext($next)
+            ->setHandleParams($request, $next)
+            ->setUriToSession()
             ->checkIfUserIsLoggedIn()
             ->getResponse();
     }
 
     /**
-     * Returns response
+     * Sets the handle parameters.
+     *
+     * @param Request $oRequest
+     * @param Closure $oNext
+     * @return middlewareAuth
+     */
+    private function setHandleParams(Request $oRequest, Closure $oNext): middlewareAuth
+    {
+        $this->oRequest = $oRequest;
+        $this->next = $oNext;
+        return $this;
+    }
+
+    /**
+     * Sets URI to session
+     *
+     * @return middlewareAuth
+     */
+    private function setUriToSession(): middlewareAuth
+    {
+        session(['redirect' => $this->oRequest->getRequestUri()]);
+        return $this;
+    }
+
+    /**
+     * Check if user is logged in.
+     *
+     * @return middlewareAuth
+     */
+    private function checkIfUserIsLoggedIn(): middlewareAuth
+    {
+        $this->oResponse = ($this->isLoggedIn() === false) ? redirect('login') : ($this->next)($this->oRequest);
+        return $this;
+    }
+
+    /**
+     * Returns true if user is logged in.
+     *
+     * @return bool
+     */
+    private function isLoggedIn()
+    {
+        try {
+            $this->oLogin->username(session('user'));
+            return true;
+        } catch (LoginException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns response.
+     *
      * @return Request|Redirect
      */
     private function getResponse()
@@ -52,48 +124,4 @@ class middlewareAuth
         return $this->oResponse;
     }
 
-    /**
-     * Sets request
-     * @param Request $oRequest
-     * @return middlewareAuth
-     */
-    private function setRequest(Request $oRequest): middlewareAuth
-    {
-        $this->oRequest = $oRequest;
-        return $this;
-    }
-
-    /**
-     * Sets next closure
-     * @param Closure $oNext
-     * @return middlewareAuth
-     */
-    private function setNext(Closure $oNext): middlewareAuth
-    {
-        $this->next = $oNext;
-        return $this;
-    }
-
-    /**
-     * Check if user is logged in
-     * @return middlewareAuth
-     */
-    private function checkIfUserIsLoggedIn(): middlewareAuth
-    {
-        $this->oResponse = ($this->next)($this->oRequest);
-        if ($this->isLoggedIn() === false) {
-            $this->oResponse = redirect('login');
-        }
-        return $this;
-    }
-
-    /**
-     * Returns true if user is logged in
-     * @return bool
-     */
-    private function isLoggedIn()
-    {
-        $sMasterLogin = env('MASTER_LOGIN');
-        return session('user') === $sMasterLogin && $sMasterLogin !== '';
-    }
 }

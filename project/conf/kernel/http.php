@@ -1,6 +1,7 @@
 <?php namespace project\conf\kernel;
 
 use Illuminate\Foundation\Http\Kernel as httpKernel;
+
 /**
  * Class http
  * @package project\conf\kernel
@@ -35,7 +36,7 @@ class http extends httpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            \project\core\middleware\middlewareCsrf::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
@@ -59,6 +60,5 @@ class http extends httpKernel
         'cache.headers'  => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can'            => \Illuminate\Auth\Middleware\Authorize::class,
         'throttle'       => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'middlewareAuth' => \project\core\middleware\middlewareAuth::class,
     ];
 }
