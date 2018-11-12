@@ -1,7 +1,9 @@
 <?php namespace project\mvc\controller;
 
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
+use project\core\lib\libAssetManager as asset;
 
 /**
  * contLanding.
@@ -17,9 +19,13 @@ class contLanding extends contBase
      * Shows the landing page.
      *
      * @return Factory|View
+     * @throws Exception
      */
     public function showLandingPage()
     {
+        asset::i()->useCss('fader');
+        asset::i()->useJs('toggle-sidebar');
+        asset::i()->useJs('fader');
         return view('landing');
     }
 }

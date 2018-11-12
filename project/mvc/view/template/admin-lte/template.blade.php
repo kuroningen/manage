@@ -11,7 +11,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('admin-lte/ionicons/css/ionicons.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('admin-lte/admin-lte/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-lte/admin-lte/css/AdminLTE.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('admin-lte/iCheck/square/blue.css') }}">
 
@@ -28,4 +28,6 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <link rel="stylesheet" href="{{ \project\core\lib\libAssetManager::i()->compileCssAsset() }}">
 @endsection

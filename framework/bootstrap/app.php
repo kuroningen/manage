@@ -1,8 +1,8 @@
 <?php
 
 define('DS', DIRECTORY_SEPARATOR);
-define('PUBLIC_PATH', dirname(__DIR__, 2) . 'public');
-define('RESOURCES_PATH', dirname(__DIR__, 2) . 'project/resources');
+define('PUBLIC_PATH', dirname(__DIR__, 2) . DS . 'public');
+define('RESOURCES_PATH', dirname(__DIR__, 2) . DS . 'project/resources');
 
 /*
 |--------------------------------------------------------------------------

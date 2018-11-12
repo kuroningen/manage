@@ -1,0 +1,3 @@
+.fader { background:#fff; position:fixed; width:100vw; height: 100vh; top:0; left:0; z-index:999999 }
+.fader { transition:opacity 1s; transition-delay:0.2s; }
+.fader.fade { opacity:0 }

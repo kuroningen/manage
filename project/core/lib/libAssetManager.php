@@ -89,6 +89,23 @@ class libAssetManager
     ];
 
     /**
+     * Singleton instance of itself
+     * @var libAssetManager
+     */
+    private static $oInstance;
+
+    /**
+     * Returns singleton instance of libAssetManager Class
+     *
+     * @return libAssetManager
+     */
+    public static function i()
+    {
+        self::$oInstance = self::$oInstance ?? app()->make(libAssetManager::class);
+        return self::$oInstance;
+    }
+
+    /**
      * Uses CSS from project/resources/css
      * The blade file must export html.blade.php
      * @param string $sCssAsset
